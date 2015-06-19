@@ -9,7 +9,8 @@ a3 = new Array N
 
 console.time 'load'
 for i in [0...N]
- v = Math.floor Math.random() * N
+ M = Math.sqrt N
+ v = Math.floor Math.random() * M
  a1[i] = a2[i] = a3[i] = v
 console.timeEnd 'load'
 
@@ -21,9 +22,9 @@ for i in [0..N - 1]
  if a1[i] > a1[i + 1]
   throw new Error "#{a1[i]} #{a1[i + 1]} #{i} unordered"
 
-console.time 'sort'
-Array.prototype.sort.call a2, (x, y) -> x - y
-console.timeEnd 'sort'
+#console.time 'sort'
+#Array.prototype.sort.call a2, (x, y) -> x - y
+#console.timeEnd 'sort'
 
 console.time 'sortArray'
 a3.sort (x, y) -> x - y

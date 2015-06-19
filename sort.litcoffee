@@ -21,7 +21,7 @@
       i = s + 1
       j = e
       while true
-       while i <= j and a[i] <= p
+       while i <= j and a[i] < p
         ++i
        while i < j and a[j] >= p
         --j
@@ -32,13 +32,16 @@
       swap s, i - 1
       if (i - 2) - s > 0
        stack.push [s, i - 2]
+      while i < e and a[i] <= p
+       ++i
       if e - i > 0
        stack.push [i, e]
+      #console.log 'test', stack
 
-#      str = ''
-#      for i in [s..e]
-#       str += "#{a[i]} "
-#      console.log p, str
+      #str = ''
+      #for i in [s..e]
+      # str += "#{a[i]} "
+      #console.log p, str
 
      undefined
 
