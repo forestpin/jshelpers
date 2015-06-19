@@ -93,5 +93,6 @@
      exports.quicksort = quicksort
      exports.mergesort = mergesort
     else
-     @quicksort = quicksort
-     @mergesort = mergesort
+     @jshelpersSort =
+      quicksort: quicksort
+      mergesort: mergesort
