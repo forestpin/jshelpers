@@ -1,2 +1,2 @@
     module.exports = (dir, callback) ->
-     (require './file_recursive') file: true, dir, callback
+     (require './find') dir, file: true, callback

@@ -35,6 +35,7 @@ Find files in a directory
 
        for file in files
         continue if file[0] is '.'
+        continue if file[file.length - 1] is '~'
         do (file) ->
          f = "#{path}/#{file}"
          callbackCount++
