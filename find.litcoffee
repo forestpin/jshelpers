@@ -1,6 +1,7 @@
 #Find Files
 
-    fs = require 'fs'
+    FS = require 'fs'
+    PATH = require 'path'
 
 Find files in a directory
 
@@ -25,38 +26,44 @@ Find files in a directory
       else
        true
 
+     addFile = (path, file) ->
+      return if file[0] is '.'
+      return if file[file.length - 1] is '~'
+      if path?
+       f = "#{path}#{PATH.sep}#{file}"
+      else
+       f = file
+      callbackCount++
+      FS.stat f, (e, stats) ->
+       if e?
+        err.push e
+        return done()
+
+       if stats.isDirectory()
+        if options.directory and filter file
+         results.push f
+        recurse f
+       else if stats.isFile()
+        if options.file and filter file
+         results.push f
+       done()
+
+
      recurse = (path) ->
       callbackCount++
-      fs.readdir path, (e1, files) ->
-       if e1?
-        err.push e1
-        done()
-        return
+      FS.readdir path, (e, files) ->
+       if e?
+        err.push e
+        return done()
 
        for file in files
-        continue if file[0] is '.'
-        continue if file[file.length - 1] is '~'
-        do (file) ->
-         f = "#{path}/#{file}"
-         callbackCount++
-         fs.stat f, (e2, stats) ->
-          if e2?
-           err.push e2
-           done()
-           return
-
-          if stats.isDirectory()
-           if options.directory and filter file
-            results.push f
-           recurse f
-          else if stats.isFile()
-           if options.file and filter file
-            results.push f
-          done()
+        addFile path, file
 
        done()
 
-     recurse root
+     callbackCount++
+     addFile null, root
+     done()
 
 ##Export
 
