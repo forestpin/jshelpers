@@ -43,6 +43,8 @@
       # str += "#{a[i]} "
       #console.log p, str
 
+     a = undefined
+     stack = undefined
      undefined
 
     mergesort = (a1, a2) ->
